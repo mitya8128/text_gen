@@ -1,0 +1,5 @@
+ipython==7.19.0
+jupyter==1.0.0
+textgenrnn==2.0.0
+
+
