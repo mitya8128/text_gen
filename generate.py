@@ -29,6 +29,7 @@ class Generate():
 
     @staticmethod
     def hokku_str(num_str):
+        '''generate poem'''
         hokku = []
         for i in range(num_str):
             hokku.append(textgen.generate(return_as_list=True, temperature=1.0))
@@ -46,6 +47,7 @@ class Generate():
 
     @staticmethod
     def delete_empty(letters, x):
+        '''check list for emptyness'''
         for letter in letters:
             if letter in x:
                 return True
@@ -54,18 +56,18 @@ class Generate():
 
     @staticmethod
     def generate_poems(self, num_poems, num_str):
+        '''generate list of poems'''
         poems = [None]
         for i in range(num_poems):
             poems[i] = self.hokku_str(num_str)
             poems.append(poems[i])
         return poems
 
-
     def filter_empty(self, poems):
+        '''filter empty lists'''
         for i in range(len(poems)):
             poems[i] = [element for element in poems[i] if self.delete_empty(letters, element) == True]
             return poems
-
 
     def generate_end(self):
         text = self.generate_poems(self, num_poems, num_str)
@@ -73,9 +75,8 @@ class Generate():
         return result
 
 
-
-if __name__== "__main__":
-    #text = Generate.hokku_str(num_str)
+if __name__ == "__main__":
+    # text = Generate.hokku_str(num_str)
     generate = Generate(num_str, num_poems)
     text = generate.generate_end()
     print(text)
