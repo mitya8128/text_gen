@@ -1,4 +1,5 @@
 from textgenrnn import textgenrnn
+import jamspell
 
 import argparse
 
@@ -11,6 +12,9 @@ parser.add_argument("--num_poems", help="number of poems to generate",
 args = parser.parse_args()
 num_str = args.num_str
 num_poems = args.num_poems
+
+corrector = jamspell.TSpellCorrector()
+corrector.LoadLangModel('/home/mitya/PycharmProjects/text_gen/models/ru_small.bin')
 
 textgen = textgenrnn('/home/mitya/PycharmProjects/text_gen/models/bashe_300.hdf5')
 
@@ -69,9 +73,16 @@ class Generate():
             poems[i] = [element for element in poems[i] if self.delete_empty(letters, element) == True]
             return poems
 
+    def correct(self, poems):
+        for i in range(len(poems)):
+            for j in range(len(poems[i])):
+                poems[i][j] = corrector.FixFragment(str(poems[i][j]))
+        return poems
+
     def generate_end(self):
         text = self.generate_poems(self, num_poems, num_str)
         result = self.filter_empty(text)
+        result = self.correct(result)
         return result
 
 
