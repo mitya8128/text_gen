@@ -49,8 +49,7 @@ class Generate():
 
         return hokku_str
 
-    @staticmethod
-    def delete_empty(letters, x):
+    def delete_empty(self, letters, x):
         '''check list for emptyness'''
         for letter in letters:
             if letter in x:
@@ -58,7 +57,6 @@ class Generate():
             else:
                 return False
 
-    @staticmethod
     def generate_poems(self, num_poems, num_str):
         '''generate list of poems'''
         poems = [None]
@@ -80,7 +78,7 @@ class Generate():
         return poems
 
     def generate_end(self):
-        text = self.generate_poems(self, num_poems, num_str)
+        text = self.generate_poems(num_poems, num_str)
         result = self.filter_empty(text)
         result = self.correct(result)
         return result
