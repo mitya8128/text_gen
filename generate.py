@@ -69,7 +69,7 @@ class Generate():
         '''filter empty lists'''
         for i in range(len(poems)):
             poems[i] = [element for element in poems[i] if self.delete_empty(letters, element) == True]
-            return poems
+        return poems
 
     def correct(self, poems):
         for i in range(len(poems)):
