@@ -136,11 +136,23 @@ class Generate():
         return text
 
 
+    def postprocess(self, text):
+        '''transforms list to string; clean and save it'''
+        text_str = str(text)
+        text_str = text_str.replace(']', '***')
+        text_str = text_str.replace(',', ',\n')
+        text_str = text_str.replace('–', '')
+        text_str = text_str.replace('[', '')
+        with open('novel.txt', 'wt') as output_file:
+            output_file.write(text_str)
+            output_file.close()
+
+
 if __name__ == "__main__":
     if novel_mode:
         generate = Generate(num_str, num_poems, num_words)
         text = generate.generate_novel()
-        print(text)
+        text = generate.postprocess(text)
     else:
         generate = Generate(num_str, num_poems)
         text = generate.generate_end()
